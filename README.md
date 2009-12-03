@@ -4,8 +4,15 @@ portable ruby bindings for the spread3 client api.
 
 ## Usage
 
-1. install the spread toolkit, see http://www.spread.org
-for instructions
+1. install the spread toolkit, version 3.17.x
+
+        sudo port install spread
+        
+or
+        sudo apt-get install spread
+        
+see [http://www.spread.org](http://www.spread.org) for instructions on how to install from
+source.
 
 2. create a simple `spread.conf`
 
@@ -28,6 +35,8 @@ and join the group "chat"
 
         User> j chat
 
+        User> 
+        ============================
         Received REGULAR membership for group chat with 1 members, where I am member 0:
         	#alice#localhost
         grp id is 2130706433 1259854449 1
@@ -39,15 +48,21 @@ and join the group "chat"
 	
 6. you should now see the following output in the second terminal
 
+        User> 
+        ============================
         Received REGULAR membership for group chat with 2 members, where I am member 0:
         	#alice#localhost
         	#bob#localhost
         grp id is 2130706433 1259854449 2
         Due to the JOIN of #bob#localhost
 
+        User> 
+        ============================
         received SAFE message from #bob#localhost, of type 0, (endian 0) to 1 groups 
         (12 bytes): hello folks!
-
+        
+        User> 
+        ============================        
         Received REGULAR membership for group chat with 1 members, where I am member 0:
         	#alice#localhost
         grp id is 2130706433 1259854449 3
