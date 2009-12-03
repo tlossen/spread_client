@@ -14,28 +14,24 @@ Gem::Specification.new do |s|
   s.email = %q{tim@lossen.de}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.md"
   ]
   s.files = [
     ".document",
      ".gitignore",
      "LICENSE",
-     "README.rdoc",
+     "README.md",
      "Rakefile",
      "VERSION",
+     "example/demo.rb",
      "lib/spread3.rb",
-     "test/helper.rb",
-     "test/test_spread3.rb"
+     "spread3.gemspec"
   ]
   s.homepage = %q{http://github.com/tlossen/spread3}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{portable ruby bindings for the spread3 client api}
-  s.test_files = [
-    "test/helper.rb",
-     "test/test_spread3.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

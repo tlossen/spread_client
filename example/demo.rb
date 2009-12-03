@@ -1,6 +1,6 @@
-require '../lib/spread3'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'spread3')
 
-c = Spread3::connect('paule')
-c.join('foo')
-c.multicast('foo', 'hello folks!')
-c.leave('foo')
+c = Spread3::connect('bob')
+c.join('chat')
+c.multicast('chat', 'hello folks!')
+c.leave('chat')

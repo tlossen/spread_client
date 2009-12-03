@@ -1,7 +1,0 @@
-= spread3
-
-portable ruby bindings for the spread3 client api.
-
-== Copyright
-
-Copyright (c) 2009 Tim Lossen. See LICENSE for details.
