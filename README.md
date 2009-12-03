@@ -9,49 +9,49 @@ for instructions
 
 2. create a simple `spread.conf`
 
-    # one spread daemon running on port 4803 on localhost
-    Spread_Segment	127.0.0.255:4803 {
-    	localhost	127.0.0.1
-    }
+        # one spread daemon running on port 4803 on localhost
+        Spread_Segment	127.0.0.255:4803 {
+        	localhost	127.0.0.1
+        }
 	
 3. start the spread daemon
 
-    $spread -n localhost -c spread.conf
+        $spread -n localhost -c spread.conf
 	
 4. in a second terminal, start the spread client, connect as user "alice" 
 and join the group "chat"
 
-    $spread -u alice
+        $spread -u alice
 
-    Spread library version is 3.17.3
-    User: connected to 4803@localhost with private group #alice#localhost
+        Spread library version is 3.17.3
+        User: connected to 4803@localhost with private group #alice#localhost
 
-    User> j chat
+        User> j chat
 
-    Received REGULAR membership for group chat with 1 members, where I am member 0:
-    	#alice#localhost
-    grp id is 2130706433 1259854449 1
-    Due to the JOIN of #alice#localhost
+        Received REGULAR membership for group chat with 1 members, where I am member 0:
+        	#alice#localhost
+        grp id is 2130706433 1259854449 1
+        Due to the JOIN of #alice#localhost
 		
 5. in a third terminal, run
 
-    $ruby example/demo.rb
+        $ruby example/demo.rb
 	
-6. you should see the following output in the second terminal
+6. you should now see the following output in the second terminal
 
-    Received REGULAR membership for group chat with 2 members, where I am member 0:
-    	#alice#localhost
-    	#bob#localhost
-    grp id is 2130706433 1259854449 2
-    Due to the JOIN of #bob#localhost
+        Received REGULAR membership for group chat with 2 members, where I am member 0:
+        	#alice#localhost
+        	#bob#localhost
+        grp id is 2130706433 1259854449 2
+        Due to the JOIN of #bob#localhost
 
-    received SAFE message from #bob#localhost, of type 0, (endian 0) to 1 groups 
-    (12 bytes): hello folks!
+        received SAFE message from #bob#localhost, of type 0, (endian 0) to 1 groups 
+        (12 bytes): hello folks!
 
-    Received REGULAR membership for group chat with 1 members, where I am member 0:
-    	#alice#localhost
-    grp id is 2130706433 1259854449 3
-    Due to the LEAVE of #bob#localhost
+        Received REGULAR membership for group chat with 1 members, where I am member 0:
+        	#alice#localhost
+        grp id is 2130706433 1259854449 3
+        Due to the LEAVE of #bob#localhost
 	
 
 ## Copyright
