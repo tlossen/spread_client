@@ -26,10 +26,9 @@ portable ruby bindings for the spread3 client api.
 
         $ spread -n localhost -c spread.conf
 	
-4. in a second terminal, start the spread client, connect as user "alice" 
-and join the group "chat"
+4. in a second terminal, start the spread client as user "alice" and join the group "chat"
 
-        $ spread -u alice
+        $ spuser -u alice
 
         Spread library version is 3.17.3
         User: connected to 4803@localhost with private group #alice#localhost
