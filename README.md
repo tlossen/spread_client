@@ -67,7 +67,12 @@ portable ruby bindings for the spread3 client api.
         	#alice#localhost
         grp id is 2130706433 1259854449 3
         Due to the LEAVE of #bob#localhost
-	
+
+## Todo
+
+- implement `receive`
+- handle errors
+- make independent of libspread location
 
 ## Copyright
 
