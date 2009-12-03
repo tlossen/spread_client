@@ -6,13 +6,14 @@ portable ruby bindings for the spread3 client api.
 
 1. install the spread toolkit, version 3.17.x
 
-        sudo port install spread
+        $ sudo port install spread
         
-or
-        sudo apt-get install spread
+    or
+    
+        $ sudo apt-get install spread
         
-see [http://www.spread.org](http://www.spread.org) for instructions on how to install from
-source.
+    or see [http://www.spread.org](http://www.spread.org) for instructions 
+    on how to install from source.
 
 2. create a simple `spread.conf`
 
@@ -23,12 +24,12 @@ source.
 	
 3. start the spread daemon
 
-        $spread -n localhost -c spread.conf
+        $ spread -n localhost -c spread.conf
 	
 4. in a second terminal, start the spread client, connect as user "alice" 
 and join the group "chat"
 
-        $spread -u alice
+        $ spread -u alice
 
         Spread library version is 3.17.3
         User: connected to 4803@localhost with private group #alice#localhost
@@ -44,7 +45,7 @@ and join the group "chat"
 		
 5. in a third terminal, run
 
-        $ruby example/demo.rb
+        $ ruby example/demo.rb
 	
 6. you should now see the following output in the second terminal
 
