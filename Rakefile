@@ -10,12 +10,19 @@ begin
     gem.email = "tim@lossen.de"
     gem.homepage = "http://github.com/tlossen/spread3"
     gem.authors = ["Tim Lossen"]
-    #gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.files.include('lib/**/*.rb')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+end
+
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
 end
 
 require 'rake/rdoctask'
@@ -27,3 +34,6 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+task :test => :check_dependencies
+task :default => :test

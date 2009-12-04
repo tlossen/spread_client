@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tim Lossen"]
-  s.date = %q{2009-12-03}
+  s.date = %q{2009-12-04}
   s.description = %q{portable ruby bindings for the spread3 client api (http://www.spread.org/), built with ffi.}
   s.email = %q{tim@lossen.de}
   s.extra_rdoc_files = [
@@ -25,13 +25,23 @@ Gem::Specification.new do |s|
      "VERSION",
      "example/demo.rb",
      "lib/spread3.rb",
-     "spread3.gemspec"
+     "lib/spread3/connection.rb",
+     "lib/spread3/errors.rb",
+     "spread3.gemspec",
+     "test/helper.rb",
+     "test/test_errors.rb",
+     "test/test_spread3.rb"
   ]
   s.homepage = %q{http://github.com/tlossen/spread3}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{portable ruby bindings for the spread3 client api}
+  s.test_files = [
+    "test/helper.rb",
+     "test/test_errors.rb",
+     "test/test_spread3.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
