@@ -6,8 +6,16 @@ require File.join(File.dirname(__FILE__), 'spread3', 'errors')
 
 module Spread3
   extend FFI::Library
-  #ffi_lib "/opt/local/lib/libspread.dylib"
   ffi_lib "libspread"
+
+  Message = Struct.new(:sender, :text)
+  Notification = Struct.new(:group, :members, :cause)
+
+  def self.connect(name)
+    Connection.new(name)
+  end
+
+private
 
   UNRELIABLE_MESS         = 0x00000001
   RELIABLE_MESS           = 0x00000002
@@ -32,8 +40,14 @@ module Spread3
   RESERVED                = 0x003fc000
   REJECT_MESS             = 0x00400000
   
-  Message = Struct.new(:sender, :text)
-  Notification = Struct.new(:group, :members, :cause)
+  enum :service_type, [
+    :unreliable, UNRELIABLE_MESS,
+    :reliable, RELIABLE_MESS,
+    :fifo, FIFO_MESS,
+    :causal, CAUSAL_MESS,
+    :agreed, AGREED_MESS,
+    :safe, SAFE_MESS
+  ]
   
   def self.regularMessage?(type)         
     (type & REGULAR_MESS > 0) && !(type & REJECT_MESS > 0)
@@ -46,28 +60,13 @@ module Spread3
   def self.transitionCausedBy(type)
     case
       when type & CAUSED_BY_JOIN > 0 then :join
-      when type & CAUSED_BY_LEAVE > 0 
-        (type & REG_MEMB_MESS == 0) ? :self_leave : :leave
+      when type & CAUSED_BY_LEAVE > 0 && type & REG_MEMB_MESS == 0 then :self_leave
+      when type & CAUSED_BY_LEAVE > 0 then :leave
       when type & CAUSED_BY_DISCONNECT > 0 then :disconnect
       when type & CAUSED_BY_NETWORK > 0 then :network
-      else nil
     end
   end
 
-  def self.connect(name)
-    Connection.new(name)
-  end
-  
-  enum :service_type, [
-    :unreliable, 0x1,
-    :reliable, 0x2,
-    :fifo, 0x4,
-    :causal, 0x8,
-    :agreed, 0x10,
-    :safe, 0x20,
-    :regular, 0x3f
-  ]
-  
   # int SP_connect(const char* spread name, const char* private name, int priority, int group_membership, 
   #   mailbox* mbox, char* private group);
   attach_function :SP_connect, [:string, :string, :int, :int, :pointer, :pointer], :int
