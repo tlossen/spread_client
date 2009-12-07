@@ -6,7 +6,8 @@ require File.join(File.dirname(__FILE__), 'spread3', 'errors')
 
 module Spread3
   extend FFI::Library
-  ffi_lib "/opt/local/lib/libspread.dylib"
+  #ffi_lib "/opt/local/lib/libspread.dylib"
+  ffi_lib "libspread"
 
   UNRELIABLE_MESS         = 0x00000001
   RELIABLE_MESS           = 0x00000002
@@ -32,7 +33,7 @@ module Spread3
   REJECT_MESS             = 0x00400000
   
   Message = Struct.new(:sender, :text)
-  TransitionMessage = Struct.new(:name, :cause)
+  Notification = Struct.new(:group, :members, :cause)
   
   def self.regularMessage?(type)         
     (type & REGULAR_MESS > 0) && !(type & REJECT_MESS > 0)
@@ -42,17 +43,14 @@ module Spread3
     (type & MEMBERSHIP_MESS > 0) && !(type & REJECT_MESS > 0)
   end
   
-  def self.transitionMessage?(type)
-    type & TRANSITION_MESS > 0
-  end
-  
   def self.transitionCausedBy(type)
     case
-    when type & CAUSED_BY_JOIN > 0 then :join
-    when type & CAUSED_BY_LEAVE > 0 then :leave
-    when type & CAUSED_BY_DISCONNECT > 0 then :disconnect
-    when type & CAUSED_BY_NETWORK > 0 then :network
-    else nil
+      when type & CAUSED_BY_JOIN > 0 then :join
+      when type & CAUSED_BY_LEAVE > 0 
+        (type & REG_MEMB_MESS == 0) ? :self_leave : :leave
+      when type & CAUSED_BY_DISCONNECT > 0 then :disconnect
+      when type & CAUSED_BY_NETWORK > 0 then :network
+      else nil
     end
   end
 
