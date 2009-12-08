@@ -11,8 +11,8 @@ module Spread3
   Message = Struct.new(:sender, :text)
   Notification = Struct.new(:group, :members, :cause)
 
-  def self.connect(name)
-    Connection.new(name)
+  def self.connect(name, options = {})
+    Connection.new(name, options)
   end
 
 private

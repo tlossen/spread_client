@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tim Lossen"]
-  s.date = %q{2009-12-07}
+  s.date = %q{2009-12-08}
   s.description = %q{portable ruby bindings for the spread3 client api (http://www.spread.org/), built with ffi.}
   s.email = %q{tim@lossen.de}
   s.extra_rdoc_files = [
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
      "spread3.gemspec",
      "test/helper.rb",
      "test/test_connection.rb",
+     "test/test_connection_no_notify.rb",
      "test/test_errors.rb",
      "test/test_spread3.rb"
   ]
@@ -43,6 +44,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/helper.rb",
      "test/test_connection.rb",
+     "test/test_connection_no_notify.rb",
      "test/test_errors.rb",
      "test/test_spread3.rb"
   ]

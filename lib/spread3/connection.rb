@@ -2,7 +2,9 @@ module Spread3
   
   class Connection
     
+    DEFAULT_SERVER = 'localhost'
     DEFAULT_PORT = 4803
+    DEFAULT_NOTIFY = true
     DEFAULT_PRIORITY = 0
     DEFAULT_SERVICE_TYPE = :safe
     DEFAULT_MESSAGE_TYPE = 0
@@ -11,8 +13,8 @@ module Spread3
     MAX_GROUP_LENGTH = 32
     MAX_MESSAGE_LENGTH = 512
     
-    def initialize(name)
-      @mbox, @name = *connect(name)
+    def initialize(name, options = {})
+      @mbox, @name = *connect(name, options)
     end
     
     def name
@@ -66,10 +68,13 @@ module Spread3
 
   private
 
-    def connect(name)
+    def connect(name, options = {})
+      options = { :server => DEFAULT_SERVER, :port => DEFAULT_PORT, :notify => DEFAULT_NOTIFY }.merge(options)
+      spread_server = "#{options[:port]}@#{options[:server]}"
+      notify = options[:notify] ? 1 : 0
       mbox = FFI::MemoryPointer.new(:int)
-      private_group = FFI::MemoryPointer.new(:char, 255)
-      result = Spread3.SP_connect(DEFAULT_PORT.to_s, name, DEFAULT_PRIORITY, 1, mbox, private_group)
+      private_group = FFI::MemoryPointer.new(:char, MAX_GROUP_LENGTH)
+      result = Spread3.SP_connect(spread_server, name, DEFAULT_PRIORITY, notify, mbox, private_group)
       raise Spread3.error_for(result) unless result == 1
       [mbox.read_int, private_group.read_string]
     end
