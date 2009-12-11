@@ -59,14 +59,32 @@ module Spread3
       groups = read_groups(groups, num_groups)
       message = message.read_string
       case
-        when Spread3.regularMessage?(service_type)
-          Spread3::Message.new(sender, message)
-        when Spread3.membershipMessage?(service_type)
-          Spread3::Notification.new(sender, groups, Spread3.transitionCausedBy(service_type))
+        when regularMessage?(service_type)
+          Message.new(sender, message)
+        when membershipMessage?(service_type)
+          Notification.new(sender, groups, causedBy(service_type))
       end
     end
 
   private
+  
+    def regularMessage?(type)         
+      (type & Spread3::REGULAR_MESS > 0) && !(type & Spread3::REJECT_MESS > 0)
+    end
+  
+    def membershipMessage?(type)
+      (type & Spread3::MEMBERSHIP_MESS > 0) && !(type & Spread3::REJECT_MESS > 0)
+    end
+  
+    def causedBy(type)
+      case
+        when type & Spread3::CAUSED_BY_JOIN > 0 then :join
+        when type & Spread3::CAUSED_BY_LEAVE > 0 && type & Spread3::REG_MEMB_MESS == 0 then :self_leave
+        when type & Spread3::CAUSED_BY_LEAVE > 0 then :leave
+        when type & Spread3::CAUSED_BY_DISCONNECT > 0 then :disconnect
+        when type & Spread3::CAUSED_BY_NETWORK > 0 then :network
+      end
+    end
 
     def connect(name, options = {})
       options = { :server => DEFAULT_SERVER, :port => DEFAULT_PORT, :notify => DEFAULT_NOTIFY }.merge(options)
