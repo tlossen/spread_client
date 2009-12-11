@@ -28,7 +28,7 @@ class TestConnection < Test::Unit::TestCase
     assert_equal :self_leave, message.cause
   end
   
-  def test_regular_message
+  def test_multicast
     @c.join('chat')
     @c.receive
     @c.multicast('chat', 'hello folks!')
@@ -37,5 +37,15 @@ class TestConnection < Test::Unit::TestCase
     assert_equal @c.name, message.sender
     assert_equal 'hello folks!', message.text
   end
+  
+  def test_multicast_with_self_discard
+    @c.join('chat')
+    @c.receive
+    @c.multicast('chat', 'one', :self_discard => true)
+    @c.multicast('chat', 'two')
+    message = @c.receive
+    assert_equal 'two', message.text
+  end
+  
   
 end

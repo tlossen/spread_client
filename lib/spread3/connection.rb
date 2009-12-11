@@ -2,11 +2,21 @@ module Spread3
   
   class Connection
     
+    SERVICE_TYPE = {
+      :unreliable => Spread3::UNRELIABLE_MESS,
+      :reliable => Spread3::RELIABLE_MESS,
+      :fifo => Spread3::FIFO_MESS,
+      :causal => Spread3::CAUSAL_MESS,
+      :agreed => Spread3::AGREED_MESS,
+      :safe => Spread3::SAFE_MESS
+    }
+    
     DEFAULT_SERVER = 'localhost'
     DEFAULT_PORT = 4803
     DEFAULT_NOTIFY = true
     DEFAULT_PRIORITY = 0
-    DEFAULT_SERVICE_TYPE = :safe
+    DEFAULT_SERVICE_TYPE = SERVICE_TYPE[:safe]
+    DEFAULT_SELF_DISCARD = false
     DEFAULT_MESSAGE_TYPE = 0
     
     MAX_GROUPS = 16
@@ -36,8 +46,10 @@ module Spread3
       raise Spread3.error_for(result) unless result == 0
     end
   
-    def multicast(group, message)
-      result = Spread3.SP_multicast(@mbox, DEFAULT_SERVICE_TYPE, group, DEFAULT_MESSAGE_TYPE, 
+    def multicast(group, message, options = {})
+      options = { :service_type => DEFAULT_SERVICE_TYPE, :self_discard => DEFAULT_SELF_DISCARD }.merge(options)
+      service_type = options[:service_type] | (options[:self_discard] ? Spread3::SELF_DISCARD : 0)
+      result = Spread3.SP_multicast(@mbox, service_type, group, DEFAULT_MESSAGE_TYPE, 
         message.length, message)
       raise Spread3.error_for(result) if result < 0
     end
