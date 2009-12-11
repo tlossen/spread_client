@@ -1,6 +1,7 @@
 # spread_client
 
-portable ruby bindings for the [spread toolkit](http://www.spread.org), version 3.17.x
+portable ruby bindings for the [spread toolkit](http://www.spread.org), version 3.17.x --
+built with [ffi](http://github.com/ffi/ffi).
 
 ## usage
 
