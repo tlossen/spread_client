@@ -25,6 +25,13 @@ module Spread3
   RESERVED                = 0x003fc000
   REJECT_MESS             = 0x00400000
 
+  # open a connection to the given spread server.
+  #
+  # options:
+  # * :server (default is 'localhost')
+  # * :port (default is 4803)
+  # * :notify -- set this to false if you do not want to receive any group
+  #   membership notifications (default is true)
   def self.connect(name, options = {})
     Connection.new(name, options)
   end

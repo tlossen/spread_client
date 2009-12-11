@@ -15,7 +15,7 @@ module Spread3
     DEFAULT_PORT = 4803
     DEFAULT_NOTIFY = true
     DEFAULT_PRIORITY = 0
-    DEFAULT_SERVICE_TYPE = SERVICE_TYPE[:safe]
+    DEFAULT_SERVICE_TYPE = :safe
     DEFAULT_SELF_DISCARD = false
     DEFAULT_MESSAGE_TYPE = 0
     
@@ -23,38 +23,57 @@ module Spread3
     MAX_GROUP_LENGTH = 32
     MAX_MESSAGE_LENGTH = 512
     
-    def initialize(name, options = {})
+    
+    def initialize(name, options = {}) #:nodoc:
       @mbox, @name = *connect(name, options)
     end
     
+    # the private group name of this connection.
     def name
       @name
     end
     
+    # disconnect from the spread server.
     def disconnect
       result = Spread3.SP_disconnect(@mbox)
       raise Spread3.error_for(result) unless result == 0
     end
   
+    # join the given group.
     def join(group)
       result = Spread3.SP_join(@mbox, group)
       raise Spread3.error_for(result) unless result == 0
     end
   
+    # leave the given group.
     def leave(group)
       result = Spread3.SP_leave(@mbox, group)
       raise Spread3.error_for(result) unless result == 0
     end
   
+    # send a message to a group. 
+    #
+    # options:
+    # * :service_type -- can be one of
+    #   * :unreliable
+    #   * :reliable
+    #   * :fifo
+    #   * :causal
+    #   * :agreed
+    #   * :safe (default)
+    # * :self_discard -- set this to true if you do not want to receive your own message (default is false) 
     def multicast(group, message, options = {})
       options = { :service_type => DEFAULT_SERVICE_TYPE, :self_discard => DEFAULT_SELF_DISCARD }.merge(options)
-      service_type = options[:service_type] | (options[:self_discard] ? Spread3::SELF_DISCARD : 0)
+      service_type = SERVICE_TYPE[options[:service_type]] | (options[:self_discard] ? Spread3::SELF_DISCARD : 0)
       result = Spread3.SP_multicast(@mbox, service_type, group, DEFAULT_MESSAGE_TYPE, 
         message.length, message)
       raise Spread3.error_for(result) if result < 0
     end
   
-    def receive()
+    # receive the next message or notification.
+    #
+    # this method blocks until a message is available.
+    def receive
       service_type = FFI::MemoryPointer.new(:int)
       sender = FFI::MemoryPointer.new(:char, MAX_GROUP_LENGTH)
       num_groups = FFI::MemoryPointer.new(:int)
