@@ -2,7 +2,22 @@
 
 portable ruby bindings for the [spread toolkit](http://www.spread.org), version 3.17.x
 
-## Usage
+## usage
+
+    sudo gem install spread-client -s http://gemcutter.org
+    
+then
+
+    require 'rubygems'
+    require 'spread_client'
+
+    c = SpreadClient::connect('bob')
+    c.join('chat')
+    c.multicast('chat', 'hello folks!')
+    c.leave('chat')
+    c.disconnect
+
+## setup instructions
 
 1. install the spread toolkit:
 
@@ -14,59 +29,16 @@ portable ruby bindings for the [spread toolkit](http://www.spread.org), version 
         
     or see <http://www.spread.org> for instructions on how to install from source.
 
-2. create a simple `spread.conf`
+2. create a simple `spread.conf`:
 
         # one spread daemon running on port 4803 on localhost
         Spread_Segment 127.0.0.255:4803 {
         	localhost 127.0.0.1
         }
 	
-3. start the spread daemon
+3. start the spread daemon:
 
         $ spread -n localhost -c spread.conf
-	
-4. in a second terminal, start the spread client as user "alice" and join the group "chat"
-
-        $ spuser -u alice
-
-        Spread library version is 3.17.3
-        User: connected to 4803@localhost with private group #alice#localhost
-
-        User> j chat
-
-        User> 
-        ============================
-        Received REGULAR membership for group chat with 1 members, where I am member 0:
-        	#alice#localhost
-        grp id is 2130706433 1259854449 1
-        Due to the JOIN of #alice#localhost
-		
-5. in a third terminal, run
-
-        $ ruby example/demo.rb
-	
-6. you should now see the following output in the second terminal
-
-        User> 
-        ============================
-        Received REGULAR membership for group chat with 2 members, where I am member 0:
-        	#alice#localhost
-        	#bob#localhost
-        grp id is 2130706433 1259854449 2
-        Due to the JOIN of #bob#localhost
-
-        User> 
-        ============================
-        received SAFE message from #bob#localhost, of type 0, (endian 0) to 1 groups 
-        (12 bytes): hello folks!
-        
-        User> 
-        ============================        
-        Received REGULAR membership for group chat with 1 members, where I am member 0:
-        	#alice#localhost
-        grp id is 2130706433 1259854449 3
-        Due to the LEAVE of #bob#localhost
-
 
 ## Copyright
 
