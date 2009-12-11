@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{spread3}
+  s.name = %q{spread-client}
   s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tim Lossen"]
   s.date = %q{2009-12-11}
-  s.description = %q{portable ruby bindings for the spread3 client api (http://www.spread.org/), built with ffi.}
+  s.description = %q{portable ruby bindings for libspread (built with ffi).}
   s.email = %q{tim@lossen.de}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -26,22 +26,22 @@ Gem::Specification.new do |s|
      "example/demo.rb",
      "example/spread.conf",
      "example/start.sh",
-     "lib/spread3.rb",
-     "lib/spread3/connection.rb",
-     "lib/spread3/errors.rb",
-     "lib/spread3/ffi.rb",
-     "lib/spread3/messages.rb",
-     "spread3.gemspec",
+     "lib/spread_client.rb",
+     "lib/spread_client/connection.rb",
+     "lib/spread_client/errors.rb",
+     "lib/spread_client/ffi.rb",
+     "lib/spread_client/messages.rb",
+     "spread-client.gemspec",
      "test/helper.rb",
      "test/test_connection.rb",
      "test/test_connection_no_notify.rb",
      "test/test_errors.rb"
   ]
-  s.homepage = %q{http://github.com/tlossen/spread3}
+  s.homepage = %q{http://github.com/tlossen/spread_client}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{portable ruby bindings for the spread3 client api}
+  s.summary = %q{ruby bindings for libspread (built with ffi)}
   s.test_files = [
     "test/helper.rb",
      "test/test_connection.rb",

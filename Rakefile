@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "spread3"
-    gem.summary = "portable ruby bindings for the spread3 client api"
-    gem.description = "portable ruby bindings for the spread3 client api (http://www.spread.org/), built with ffi."
+    gem.name = "spread-client"
+    gem.summary = "ruby bindings for libspread (built with ffi)"
+    gem.description = "portable ruby bindings for libspread (built with ffi)."
     gem.email = "tim@lossen.de"
-    gem.homepage = "http://github.com/tlossen/spread3"
+    gem.homepage = "http://github.com/tlossen/spread_client"
     gem.authors = ["Tim Lossen"]
     gem.files.include('lib/**/*.rb')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
