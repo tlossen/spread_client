@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'spread_client')
 
-c = Spread3::connect('bob')
+c = SpreadClient::connect('bob')
 c.join('chat')
 puts c.receive().inspect
 c.multicast('chat', 'hello folks!')

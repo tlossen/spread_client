@@ -1,4 +1,4 @@
-module Spread3
+module SpreadClient
 
   class Error < ::RuntimeError; end
 

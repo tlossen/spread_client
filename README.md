@@ -1,10 +1,10 @@
-# spread3
+# spread_client
 
-portable ruby bindings for the spread3 client api.
+portable ruby bindings for the [spread toolkit](http://www.spread.org), version 3.17.x
 
 ## Usage
 
-1. install the spread toolkit, version 3.17.x
+1. install the spread toolkit:
 
         $ sudo port install spread
         
@@ -12,14 +12,13 @@ portable ruby bindings for the spread3 client api.
     
         $ sudo apt-get install spread
         
-    or see [http://www.spread.org](http://www.spread.org) for instructions 
-    on how to install from source.
+    or see <http://www.spread.org> for instructions on how to install from source.
 
 2. create a simple `spread.conf`
 
         # one spread daemon running on port 4803 on localhost
-        Spread_Segment	127.0.0.255:4803 {
-        	localhost	127.0.0.1
+        Spread_Segment 127.0.0.255:4803 {
+        	localhost 127.0.0.1
         }
 	
 3. start the spread daemon

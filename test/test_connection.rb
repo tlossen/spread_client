@@ -3,7 +3,7 @@ require 'helper'
 class TestConnection < Test::Unit::TestCase
 
   def setup
-    @c = Spread3::connect('bob')
+    @c = SpreadClient::connect('bob')
   rescue 
     raise "this test expects a spread server running at localhost:4803"
   end
@@ -15,7 +15,7 @@ class TestConnection < Test::Unit::TestCase
   def test_self_join_message
     @c.join('chat')
     message = @c.receive
-    assert_equal Spread3::Notification, message.class
+    assert_equal SpreadClient::Notification, message.class
     assert_equal :join, message.cause
   end
   
@@ -24,7 +24,7 @@ class TestConnection < Test::Unit::TestCase
     @c.receive
     @c.leave('chat')
     message = @c.receive
-    assert_equal Spread3::Notification, message.class
+    assert_equal SpreadClient::Notification, message.class
     assert_equal :self_leave, message.cause
   end
   
@@ -33,7 +33,7 @@ class TestConnection < Test::Unit::TestCase
     @c.receive
     @c.multicast('chat', 'hello folks!')
     message = @c.receive
-    assert_equal Spread3::Message, message.class
+    assert_equal SpreadClient::Message, message.class
     assert_equal @c.name, message.sender
     assert_equal 'hello folks!', message.text
   end

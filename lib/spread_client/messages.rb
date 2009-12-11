@@ -1,4 +1,4 @@
-module Spread3
+module SpreadClient
 
   class Message
     attr_reader :sender, :text

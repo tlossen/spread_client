@@ -1,29 +1,6 @@
-module Spread3
+module SpreadClient
   extend FFI::Library
   ffi_lib "libspread"
-
-  UNRELIABLE_MESS         = 0x00000001
-  RELIABLE_MESS           = 0x00000002
-  FIFO_MESS               = 0x00000004
-  CAUSAL_MESS             = 0x00000008
-  AGREED_MESS             = 0x00000010
-  SAFE_MESS               = 0x00000020
-  REGULAR_MESS            = 0x0000003f
-
-  SELF_DISCARD		        = 0x00000040
-  DROP_RECV               = 0x01000000
-
-  REG_MEMB_MESS           = 0x00001000
-  TRANSITION_MESS         = 0x00002000
-  CAUSED_BY_JOIN		      = 0x00000100
-  CAUSED_BY_LEAVE		      = 0x00000200
-  CAUSED_BY_DISCONNECT	  = 0x00000400
-  CAUSED_BY_NETWORK	      = 0x00000800
-  MEMBERSHIP_MESS         = 0x00003f00
-
-  ENDIAN_RESERVED         = 0x80000080
-  RESERVED                = 0x003fc000
-  REJECT_MESS             = 0x00400000
 
   # open a connection to the given spread server.
   #
